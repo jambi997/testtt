@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://art/Sprite-0004-Recovered.png" type="Texture" id=1]
+[ext_resource path="res://lab.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 2.52826
+height = 23.017
+
+[sub_resource type="Animation" id=2]
+resource_name = "run"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "run"
+
+[sub_resource type="AnimationNodeStateMachine" id=4]
+states/run/node = SubResource( 3 )
+states/run/position = Vector2( 274, 103 )
+start_node = "run"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=5]
+
+[node name="lab" type="RigidBody2D"]
+collision_layer = 9
+collision_mask = 9
+mode = 3
+mass = 2.25
+gravity_scale = 0.0
+can_sleep = false
+linear_damp = 0.0
+angular_damp = 100.0
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 2
+region_enabled = true
+region_rect = Rect2( 0, 132, 129, 55 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+light_mask = 9
+position = Vector2( -1.36226, 4.08674 )
+rotation = 1.01578
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/run = SubResource( 2 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 4 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 5 )

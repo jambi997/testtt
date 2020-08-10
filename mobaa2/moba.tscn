@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://csotanykiraly.tscn" type="PackedScene" id=1]
+[ext_resource path="res://TileMap.tscn" type="PackedScene" id=2]
+[ext_resource path="res://moba.gd" type="Script" id=3]
+[ext_resource path="res://lovagjanos.tscn" type="PackedScene" id=6]
+
+[node name="moba" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="TileMap" parent="." instance=ExtResource( 2 )]
+
+[node name="lovagjanos" parent="." instance=ExtResource( 6 )]
+position = Vector2( 210.306, 71.4608 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.385
+autostart = true
+
+[node name="csotanykiraly" parent="." instance=ExtResource( 1 )]
+position = Vector2( 112, -8 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
